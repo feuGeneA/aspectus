@@ -1,0 +1,4 @@
+[SIMILARITIES]
+
+# Ignore imports when computing similarities.
+ignore-imports=yes

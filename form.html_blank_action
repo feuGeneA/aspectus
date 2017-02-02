@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>socalgen</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script type="text/javascript" src="script.js"></script>
+  </head>
+  <body>
+    <h1>aspectus: generate an aspect prospectus</h1>
+    <p>Generates an iCalendar file with events of upcoming astrological aspects.  Currently only sun-earth trines and sextants are supported.</p>
+    <form action="" method="GET">
+      <div>
+        <label for="place">Location:</label>
+        <input type="text" id="place" name="place" />
+      </div>
+      <div>
+        <label for="lookaheaddays">Number of days forward:</label>
+        <input type="text" id="lookaheaddays" name="lookaheaddays" />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
