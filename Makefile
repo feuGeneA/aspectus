@@ -3,7 +3,7 @@
 all: deployment_test form.html # TODO: delete line when d'test depends on f'html
 
 deployment_test: deploy deployment.url web_response.ics.masked.expected
-	wget $(shell cat deployment.url)?place=flint%20hill%20va\&lookaheaddays=1 \
+	wget $(shell cat deployment.url)?place=flint%20hill%20va\&lookaheaddays=1\&startdate=2017/01/01 \
 	    --output-document=web_response.ics
 	sed -e 's/DATE-TIME:.*/DATE-TIME:.../' \
 	    -e 's/Sextant/*/' \

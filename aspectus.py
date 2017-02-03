@@ -123,9 +123,8 @@ def generate_icalendar(place, lookaheaddays, start):
     """generate icalendar containing events for all sun alignments at the place
     described by string :param place, looking by int()-compatible string :param
     lookaheaddays number of days, optionally starting from the optional
-    dateutil.parser-compatible string :param start, which is interpreted as the
-    datetime with local time (NOT UTC) in the timezone at :param place, as
-    determined by tzwhere.
+    dateutil.parser-compatible string :param start, which is extrapolated to a
+    datetime at midnight UTC.
     """
     debug('%s %s %s', place, lookaheaddays, start)
 
@@ -135,9 +134,8 @@ def generate_icalendar(place, lookaheaddays, start):
     observer.lat = radians(location.latitude)
     observer.lon = radians(location.longitude)
     if start is not None:
-        debug('start is not None')
         from dateutil.parser import parse
-        observer.date = parse(start).astimezone(gettz('UTC')) # pylint:disable=maybe-no-member
+        observer.date = parse(start)
     observer.epoch = observer.date
 
     startdate = observer.date.datetime()
@@ -189,8 +187,8 @@ def lambda_handler(event, context): # pylint:disable=unused-argument
     cal = generate_icalendar( \
             event['queryStringParameters']['place'],
             event['queryStringParameters']['lookaheaddays'],
-            event['queryStringParameters']['startdatetime'] \
-                if 'startdatetime' in event['queryStringParameters'] else None)
+            event['queryStringParameters']['startdate'] \
+                if 'startdate' in event['queryStringParameters'] else None)
 
     if cal is None:
         return {'statusCode': '204'}

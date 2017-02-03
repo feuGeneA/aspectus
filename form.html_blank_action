@@ -19,6 +19,10 @@
         <label for="lookaheaddays">Number of days forward:</label>
         <input type="text" id="lookaheaddays" name="lookaheaddays" />
       </div>
+      <div>
+        <label for="start">(Optional) Start from (midnight UTC on) date:</label>
+        <input type="date" id="startdate" name="startdate" />
+      </div>
       <button type="submit">Submit</button>
     </form>
   </body>

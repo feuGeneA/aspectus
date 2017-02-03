@@ -44,6 +44,14 @@ class TestGenerateiCalendarInIsolation(unittest.TestCase): \
         self.assertIsInstance(cal, icalendar.Calendar)
         self.assertTrue(len(cal.content_lines()) > 0)
 
+    def test_start_date_time(self):
+        """test that we can handle a startdatetime, as formatted by Chromium's
+        HTML5 form input type date.
+        """
+        cal = aspectus.generate_icalendar('avon nc', '1', '2017/01/01')
+        self.assertIsInstance(cal, icalendar.Calendar)
+        self.assertTrue(len(cal.content_lines()) > 0)
+
     def tearDown(self):
         """uninstall the mock"""
         aspectus.find_altitude = self.real_find_altitude_
