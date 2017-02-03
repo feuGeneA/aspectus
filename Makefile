@@ -147,7 +147,7 @@ aws_apigateway_api_arn: aws_lambda_arn aws_apigateway_api_id
 	    -e "s/function:$(AWS_NAME)/$(shell cat aws_apigateway_api_id)/" \
 	    aws_lambda_arn > aws_apigateway_api_arn
 
-aws_lambda_arn: aws_iam_role_arn 
+aws_lambda_arn: aws_iam_role_arn
 	zip empty.zip aws_iam_role_arn
 	aws lambda create-function \
 	    --function-name $(AWS_NAME) \
