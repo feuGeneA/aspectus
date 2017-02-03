@@ -48,6 +48,7 @@ def find_altitude(body, observer, altitudes, step, stop):
     initialized with a datetime and location.  body.compute(observer) should
     already have been called.
     """
+    # many thanks to http://codereview.stackexchange.com/a/153972/85827
     debug('%s %s %s %s %s', body, observer, altitudes, step, stop)
 
     assert isinstance(body, Body)
@@ -100,7 +101,7 @@ def find_altitude(body, observer, altitudes, step, stop):
                         timedelta(seconds=step.total_seconds()/10), stop)
 
     """Backlog of improvements to this function:
-    (thanks to http://codereview.stackexchange.com/q/153958/ !!!)
+    (thanks to http://codereview.stackexchange.com/a/153972/85827 !!!)
     - Use ephem.newton instead of recursion, in order to achieve quadratic
       convergence instead of linear.
     - Do observer datetime init and body.compute(observer) within method, in
@@ -113,9 +114,9 @@ def find_altitude(body, observer, altitudes, step, stop):
     - For a target's relations before and after the timestep, better
       performance can be achieved by sorting the targets and then using bisect
       (which would be O(log n)), instead of using a list comprehension (which
-      is O(n)).  See http://codereview.stackexchange.com/q/153958/.  Necessity
-      is questionable, since we likely won't ever have more than a handful of
-      targets.
+      is O(n)).  See http://codereview.stackexchange.com/a/153972/85827.
+      Necessity is questionable, since we likely won't ever have more than a
+      handful of targets.
     """ # PEP258: Add'l Docstrings # pylint:disable=pointless-string-statement
 
 def generate_icalendar(place, lookaheaddays, start):
