@@ -1,5 +1,6 @@
 aws_apigateway_api_arn
 aws_apigateway_api_id
+aws_apigateway_deployment_stage
 aws_apigateway_method
 aws_apigateway_parent_resource_id
 aws_apigateway_resource_id

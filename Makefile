@@ -22,9 +22,9 @@ AWS_NAME=aspectus
 AWS_DESCRIPTION="aspect+prospectus. Generates iCalendars with astrological aspect events."
 AWS_APIGATEWAY_DEPLOYMENT_STAGE_NAME=prod
 
-deployment.url: configure_aws_environment
+deployment.url: configure_aws_environment aws_apigateway_deployment_stage
 	echo https://$(shell cat aws_apigateway_api_id).execute-api.$(shell aws \
-	    configure get region).amazonaws.com/$(AWS_APIGATEWAY_DEPLOYMENT_STAGE_NAME)/$(AWS_NAME)\
+	    configure get region).amazonaws.com/$(shell cat aws_apigateway_deployment_stage_name)/$(AWS_NAME)\
 	    >deployment.url
 
 deploy: deployment.zip configure_aws_environment
@@ -80,25 +80,12 @@ configure_aws_environment: aws_lambda_arn \
 	    --http-method $(shell cat aws_apigateway_method) \
 	    --status-code 200 \
 	    --selection-pattern ".*"
-	aws apigateway create-deployment \
-	    --rest-api-id $(shell cat aws_apigateway_api_id) \
-	    --description $(AWS_DESCRIPTION) \
-	    --stage-name $(AWS_APIGATEWAY_DEPLOYMENT_STAGE_NAME)
 	aws lambda add-permission \
 	    --function-name $(AWS_NAME) \
 	    --statement-id $(AWS_NAME)-all-stages \
 	    --action lambda:InvokeFunction \
 	    --principal apigateway.amazonaws.com \
 	    --source-arn "$(shell cat aws_apigateway_api_arn)/*/$(shell \
-	        cat aws_apigateway_method)/$(AWS_NAME)"
-	aws lambda add-permission \
-	    --function-name $(AWS_NAME) \
-	    --statement-id \
-	        apigateway-$(AWS_NAME)-stage-$(AWS_APIGATEWAY_DEPLOYMENT_STAGE_NAME) \
-	    --action lambda:InvokeFunction \
-	    --principal apigateway.amazonaws.com \
-	    --source-arn "$(shell cat \
-	        aws_apigateway_api_arn)/$(AWS_APIGATEWAY_DEPLOYMENT_STAGE_NAME)/$(shell \
 	        cat aws_apigateway_method)/$(AWS_NAME)"
 	aws s3 mb s3://$(AWS_NAME)
 	echo AWS environment configured. $(TIMESTAMP_FILE_CONTENTS) \
@@ -185,6 +172,27 @@ else
 	    --role-name $(AWS_NAME) \
 	    --policy-document file://aws_iam_assume_role_policy.json
 endif
+
+aws_apigateway_deployment_stage: aws_apigateway_deployment_stage_name \
+                                 aws_apigateway_api_id \
+                                 aws_apigateway_api_arn \
+                                 aws_apigateway_method
+	aws apigateway create-deployment \
+	    --rest-api-id $(shell cat aws_apigateway_api_id) \
+	    --description $(AWS_DESCRIPTION) \
+	    --stage-name $(shell cat aws_apigateway_deployment_stage_name)
+	aws lambda add-permission \
+	    --function-name $(AWS_NAME) \
+	    --statement-id \
+	        apigateway-$(AWS_NAME)-stage-$(shell cat aws_apigateway_deployment_stage_name) \
+	    --action lambda:InvokeFunction \
+	    --principal apigateway.amazonaws.com \
+	    --source-arn "$(shell cat \
+	        aws_apigateway_api_arn)/$(shell cat aws_apigateway_deployment_stage_name)/$(shell \
+	        cat aws_apigateway_method)/$(AWS_NAME)"
+	sleep 3 # let sink in. w/out this, a changed stage name will yield an HTTP 403 in the deployment test
+	echo AWS API Gateway Deployment Stage created. $(TIMESTAMP_FILE_CONTENTS) \
+	    >aws_apigateway_deployment_stage
 
 deployment_dependency_libraries: requirements.txt
 	$(info may fail if pip compiles binaries for non-x86_64 Linux)
