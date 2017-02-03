@@ -31,7 +31,7 @@ from dateutil.tz import gettz
 from geopy.geocoders import Nominatim
 from datetime import timedelta, datetime
 from math import degrees, radians
-from logging import info, debug
+from logging import info, debug, getLogger, DEBUG
 
 class AltitudeNotFound(Exception):
     """Raised by find_altitude when no altitude can be found"""
@@ -48,7 +48,7 @@ def find_altitude(body, observer, altitudes, step, stop):
     initialized with a datetime and location.  body.compute(observer) should
     already have been called.
     """
-    debug(body, observer, altitudes, step, stop)
+    debug('%s %s %s %s %s', body, observer, altitudes, step, stop)
 
     assert isinstance(body, Body)
     assert isinstance(observer, Observer)
@@ -71,7 +71,7 @@ def find_altitude(body, observer, altitudes, step, stop):
         observer.epoch = observer.date
         body.compute(observer)
         current_alt = degrees(body.alt)
-        debug(current_alt, observer)
+        debug('%s %s', current_alt, observer)
 
         # if any altitude is "close enough", return it
         for altitude in altitudes:
@@ -81,7 +81,7 @@ def find_altitude(body, observer, altitudes, step, stop):
                         timedelta(seconds=step.total_seconds()*10)
                 observer.epoch = observer.date
                 body.compute(observer)
-                info('found ', current_alt, ' at ', observer)
+                info('found %s at %s', current_alt, observer)
                 return (altitude, observer.date.datetime())
 
         # capture each altitude's relation to cur_alt after step forward
@@ -126,6 +126,7 @@ def generate_icalendar(place, lookaheaddays, start):
     datetime with local time (NOT UTC) in the timezone at :param place, as
     determined by tzwhere.
     """
+    debug('%s %s %s', place, lookaheaddays, start)
 
     location = Nominatim().geocode(place)
 
@@ -133,6 +134,7 @@ def generate_icalendar(place, lookaheaddays, start):
     observer.lat = radians(location.latitude)
     observer.lon = radians(location.longitude)
     if start is not None:
+        debug('start is not None')
         from dateutil.parser import parse
         observer.date = parse(start).astimezone(gettz('UTC')) # pylint:disable=maybe-no-member
     observer.epoch = observer.date
@@ -177,6 +179,8 @@ def generate_icalendar(place, lookaheaddays, start):
 
 def lambda_handler(event, context): # pylint:disable=unused-argument
     """handle event from AWS lambda"""
+    getLogger().setLevel(DEBUG)
+    debug('%s %s', event, context)
     assert 'queryStringParameters' in event
     assert 'place' in event['queryStringParameters']
     assert 'lookaheaddays' in event['queryStringParameters']

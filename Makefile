@@ -37,7 +37,7 @@ deploy: deployment.zip configure_aws_environment
 	echo Deployment successful. $(TIMESTAMP_FILE_CONTENTS)>deploy
 
 unit_test: *.py tests/*.py
-	python -m unittest discover -s tests
+	python -m unittest discover -s tests --verbose
 	@echo Unit test\(s\) passed. $(TIMESTAMP_FILE_CONTENTS) > unit_test
 
 pylint: unit_test
