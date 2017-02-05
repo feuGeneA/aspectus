@@ -9,3 +9,7 @@ Support for other bodies besides the Sun could be added very easily.
 Support for other aspects besides trines and sextants could be added with not TOO much work.
 
 Support for aspects between two celestial bodies, rather than between one celestial body and the center of the earth, would be great to have, but it would not be well supported by the current altitude-based algorithms.
+
+Backlog of potential improvements:
+
+- As a user, I want all of the events for a specific aspect, and at a specific location, to be one recurring event, rather than separate independent events, so that I might delete all of them in one fell swoop from my calendar application.
