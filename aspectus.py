@@ -49,7 +49,8 @@ def find_altitude(body, observer, altitudes, step, stop):
     already have been called.
     """
     # many thanks to http://codereview.stackexchange.com/a/153972/85827
-    debug('%s %s %s %s %s', body, observer, altitudes, step, stop)
+    debug('find_altitude(%s, %s, %s, %s, %s)', body, observer, altitudes, step,
+            stop)
 
     assert isinstance(body, Body)
     assert isinstance(observer, Observer)
@@ -126,7 +127,7 @@ def generate_icalendar(place, lookaheaddays, start):
     dateutil.parser-compatible string :param start, which is extrapolated to a
     datetime at midnight UTC.
     """
-    debug('%s %s %s', place, lookaheaddays, start)
+    debug('generate_icalendar(%s, %s, %s)', place, lookaheaddays, start)
 
     location = Nominatim().geocode(place)
 
@@ -134,6 +135,7 @@ def generate_icalendar(place, lookaheaddays, start):
     observer.lat = radians(location.latitude)
     observer.lon = radians(location.longitude)
     if start is not None:
+        debug('start is "%s", type is "%s"', start, type(start))
         from dateutil.parser import parse
         observer.date = parse(start)
     observer.epoch = observer.date
@@ -179,7 +181,7 @@ def generate_icalendar(place, lookaheaddays, start):
 def lambda_handler(event, context): # pylint:disable=unused-argument
     """handle event from AWS lambda"""
     getLogger().setLevel(DEBUG)
-    debug('%s %s', event, context)
+    debug('lambda_handler(%s, %s)', event, context)
     assert 'queryStringParameters' in event
     assert 'place' in event['queryStringParameters']
     assert 'lookaheaddays' in event['queryStringParameters']
