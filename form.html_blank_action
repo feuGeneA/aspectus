@@ -9,7 +9,7 @@
   </head>
   <body>
     <h1>aspectus: generate an aspect prospectus</h1>
-    <p>Generates an iCalendar file with events of upcoming astrological aspects.  Currently only sun-earth trines and sextants are supported.</p>
+    <p>Generates an iCalendar file with events for upcoming astrological aspects.  Currently only sun-earth trines and sextants are supported.</p>
     <form action="" method="GET">
       <div>
         <label for="place">Location:</label>
