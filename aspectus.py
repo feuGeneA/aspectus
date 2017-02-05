@@ -134,7 +134,7 @@ def generate_icalendar(place, lookaheaddays, start):
     observer = Observer()
     observer.lat = radians(location.latitude)
     observer.lon = radians(location.longitude)
-    if start is not None:
+    if start is not None and len(start) != 0:
         debug('start is "%s", type is "%s"', start, type(start))
         from dateutil.parser import parse
         observer.date = parse(start)

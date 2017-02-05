@@ -44,6 +44,16 @@ class TestGenerateiCalendarInIsolation(unittest.TestCase): \
         self.assertIsInstance(cal, icalendar.Calendar)
         self.assertTrue(len(cal.content_lines()) > 0)
 
+    def test_blank_start_date(self):
+        """test that we get a calendar object with some content lines, rather
+        than ValueError("String does not contain a date.")  Specifically, pass
+        a Unicode empty string, u'', instead of a regular empty string('') or
+        None, because that's the way it comes through to the lambda function
+        when the form is entered without any input in the start date field."""
+        cal = aspectus.generate_icalendar('avon nc', '1', u'')
+        self.assertIsInstance(cal, icalendar.Calendar)
+        self.assertTrue(len(cal.content_lines()) > 0)
+
     def test_start_date_time(self):
         """test that we can handle a startdatetime, as formatted by Chromium's
         HTML5 form input type date.
