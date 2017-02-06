@@ -254,7 +254,7 @@ in its timestamp. Its purpose is to indicate which Makefile targets need to \
 be executed. Changing the timestamp of this file \(such as by \
 updating/writing to it\) will likely break Makefile funcionality.
 
-# Backlog of improvements to this file:
+# Backlog of potential improvements to this file:
 #
 # As a maintainer, I want a Selenium WebDriver deployment test, which uses (and
 # whose target depends) on both the Selenium script and form.html, in order to

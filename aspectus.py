@@ -101,7 +101,7 @@ def find_altitude(body, observer, altitudes, step, stop):
                 return find_altitude(body, observer, [altitudes[index]],
                         timedelta(seconds=step.total_seconds()/10), stop)
 
-    """Backlog of improvements to this function:
+    """Backlog of potential improvements to this function:
     (thanks to http://codereview.stackexchange.com/a/153972/85827 !!!)
     - Use ephem.newton instead of recursion, in order to achieve quadratic
       convergence instead of linear.
@@ -215,7 +215,7 @@ def main():
 if __name__ == "__main__":
     main()
 
-"""Backlog of improvements to this file:
+"""Backlog of potential improvements to this file:
 As a user, I want to pass calendar-generation options via the command line, so
 that I can generate a calendar by running the python script directly, rather
 than relying on an online instance of the service.
