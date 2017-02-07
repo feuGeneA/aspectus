@@ -4,12 +4,14 @@ aspectus
 
 Import events into your Google Calendar (or other favorite iCalendar application) for recurring angles between celestial bodies.
 
-### Development status
+Development status
+---
 aspectus currently supports only trine and sextant aspects, and only between the Earth and Sun.
 
 The sun-earth trine and sextant aspects are are derived from the altitude of the Sun.  A solar altitude of 30 degrees implies the 120 degree trine aspect, comrpised of the 30 degrees between lines from observer to sun and from observer to horizon, plus the 90 degrees between the lines from observer to horizon and from to observer to center of Earth.  A solar altitude of -30 degrees implies the 60 degree sextant aspect, comprised of the -30 degrees between lines from observer to horizon and from observer to the sun (below the horizon), and the -90 degrees between the lines from observer to horizon and observer to the center of the earth.
 
-### Backlog of potential improvements
+Backlog of features
+---
 * As a user, I want all of the events for a particular aspect, and at a specific location, to be one recurring event, rather than separate independent calendar entries, so that I might delete all of them in one fell swoop from my calendar application.
 
 * As a user, I want to specify a number of minutes ahead of the alignment at which I will be notified by my calendar application, so that I don't get stuck with the application's default (30 minutes for Google Calendar), or, worse yet, so that I don't have no alarm at all. (Add VALARM components to the events.)
@@ -26,7 +28,8 @@ The sun-earth trine and sextant aspects are are derived from the altitude of the
 
 * As a user, I want the performance improvements suggested by http://codereview.stackexchange.com/a/153972/85827.  (Primarily, use ephem.newton() instead of recursion.  Also consider sort/bisect instead of list comprehensions, and consider minimizing data type conversions.  After, consider "start, stop, step" idiom to eliminate observer and body initialization preconditions.)
 
-### Backlog of technical debt and seeds of rot
+Backlog of technical debt
+---
 * As a maintainer, I need Travis CI to continuously run the unit tests, upon by every commit to GitHub, with status as a badge in REAME.md, so that the fundamental functionality of the code is always known to be in a usable state.
 
 * As a maintainer, I need a Selenium deployment test, in order to test the generated form.html.  Then, I need that deployment test integrated into the local deploy and test pipeline, so that I don't have to remember to run it; specifically, I want a Selenium execution target in the Makefile, which depends on the form.html target, and then I want the all: target to go away in favor of delivery_test: first being first target in the file.
