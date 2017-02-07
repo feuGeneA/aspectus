@@ -19,8 +19,7 @@ form.html: form.html_blank_action deployment.url
 	    form.html_blank_action > form.html
 
 AWS_NAME=aspectus
-AWS_DESCRIPTION="aspect+prospectus. Generates iCalendars with astrological aspect events."
-AWS_APIGATEWAY_DEPLOYMENT_STAGE_NAME=prod
+AWS_DESCRIPTION="Chart upcoming astrological events"
 
 deployment.url: configure_aws_environment aws_apigateway_deployment_stage
 	echo https://$(shell cat aws_apigateway_api_id).execute-api.$(shell aws \
