@@ -101,25 +101,6 @@ def find_altitude(body, observer, altitudes, step, stop):
                 return find_altitude(body, observer, [altitudes[index]],
                         timedelta(seconds=step.total_seconds()/10), stop)
 
-    """Backlog of potential improvements to this function:
-    (thanks to http://codereview.stackexchange.com/a/153972/85827 !!!)
-    - Use ephem.newton instead of recursion, in order to achieve quadratic
-      convergence instead of linear.
-    - Do observer datetime init and body.compute(observer) within method, in
-      order to relieve client of that responsibility.
-    - Change interface to have start/stop/step datetimes, in order to conform
-      to Python conventions.  Consider having stop be a timedelta, so that a
-      default parameter value can be specified in the interface.
-    - Reduce repeated date conversions in order to make code more performant
-      and readable.
-    - For a target's relations before and after the timestep, better
-      performance can be achieved by sorting the targets and then using bisect
-      (which would be O(log n)), instead of using a list comprehension (which
-      is O(n)).  See http://codereview.stackexchange.com/a/153972/85827.
-      Necessity is questionable, since we likely won't ever have more than a
-      handful of targets.
-    """ # PEP258: Add'l Docstrings # pylint:disable=pointless-string-statement
-
 def generate_icalendar(place, lookaheaddays, start):
     """generate icalendar containing events for all sun alignments at the place
     described by string :param place, looking by int()-compatible string :param
@@ -214,27 +195,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-"""Backlog of potential improvements to this file:
-As a user, I want to pass calendar-generation options via the command line, so
-that I can generate a calendar by running the python script directly, rather
-than relying on an online instance of the service.
-
-As a tester of the web service, I want any Python exceptions to be conveyed as
-part of the body of an HTTP 500 response, so that if something goes wrong I
-have some indication of what the problem was.
-
-As a user, I want to specify a number of minutes ahead of the alignment at
-which I will be notified by my calendar application, so that I don't get
-stuck with the application's default (30 minutes for Google Calendar), or,
-worse yet, so that I don't have no alarm at all. (Add VALARM components to
-the events.)
-
-As a user, rather than the alignment events being a single moment in time, I
-want them to have a duration, using an astrological "orb" based on the size
-of the body in angular distance, so that I understand how long the alignment
-is having an effect.  (Use pyehem.body.size, which is diameter in
-arcseconds)
-
-(See also backlog within find_altitude function.)
-""" # PEP258: Additional Docstrings # pylint:disable=pointless-string-statement

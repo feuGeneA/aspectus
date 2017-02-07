@@ -253,26 +253,3 @@ TIMESTAMP_FILE_CONTENTS=This file is a placeholder whose only significance is \
 in its timestamp. Its purpose is to indicate which Makefile targets need to \
 be executed. Changing the timestamp of this file \(such as by \
 updating/writing to it\) will likely break Makefile funcionality.
-
-# Backlog of potential improvements to this file:
-#
-# As a maintainer, I want a Selenium WebDriver deployment test, which uses (and
-# whose target depends) on both the Selenium script and form.html, in order to
-# integrate the form with the delivery & test pipeline.  (Then remove the all:
-# target, and make the deployment_test: target be first in this file.)
-#
-# As a maintainer, I want Travis CI to do continuous unit testing triggered by
-# every commit to GitHub, with a status badge in REAME.md, so that the
-# fundamental functionality of the code is always known to be in a usable state.
-#
-# As a maintainer, I want my AWS credentials securely conveyed to Travis CI, so
-# that every commit can also enable continuous deployment in addition to
-# continuous unit testing.  (Likely define encrypted variables in .travis.yml.
-# See:
-# * https://docs.travis-ci.com/user/environment-variables/#Defining-encrypted-variables-in-.travis.yml
-# * http://docs.aws.amazon.com/cli/latest/topic/config-vars.html)
-#
-# As a maintainer, I want the Selenium deployment scripts to be automatically
-# run with each commit to GitHub, in order to enable continuous deployment
-# testing.  (Use Sauce Labs as in
-# https://docs.travis-ci.com/user/gui-and-headless-browsers/.)
