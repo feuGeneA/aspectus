@@ -5,7 +5,7 @@ aspectus
 Import events into your Google Calendar (or other favorite iCalendar application) for recurring angles between celestial bodies.
 
 ### Development status
-aspectus currently only trine and sextant aspects, and only between the Earth and Sun.
+aspectus currently supports only trine and sextant aspects, and only between the Earth and Sun.
 
 The sun-earth trine and sextant aspects are are derived from the altitude of the Sun.  A solar altitude of 30 degrees implies the 120 degree trine aspect, comrpised of the 30 degrees between lines from observer to sun and from observer to horizon, plus the 90 degrees between the lines from observer to horizon and from to observer to center of Earth.  A solar altitude of -30 degrees implies the 60 degree sextant aspect, comprised of the -30 degrees between lines from observer to horizon and from observer to the sun (below the horizon), and the -90 degrees between the lines from observer to horizon and observer to the center of the earth.
 
