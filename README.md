@@ -32,8 +32,6 @@ Backlog of features
 
 Backlog of technical debt
 ---
-* As a maintainer, I need Travis CI to continuously run the unit tests, upon by every commit to GitHub, with status as a badge in REAME.md, so that the fundamental functionality of the code is always known to be in a usable state.
-
 * As a maintainer, I need a Selenium deployment test, in order to test the generated form.html.  Then, I need that deployment test integrated into the local deploy and test pipeline, so that I don't have to remember to run it; specifically, I want a Selenium execution target in the Makefile, which depends on the form.html target, and then I want the all: target to go away in favor of delivery_test: first being first target in the file.
 
 * As a maintainer, I need my AWS credentials securely conveyed to Travis CI, so that every commit can also enable continuous deployment in addition to continuous unit testing.
