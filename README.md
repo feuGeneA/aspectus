@@ -8,7 +8,7 @@ Development status
 ---
 [![Build Status](https://travis-ci.org/feuGeneA/aspectus.svg?branch=master)](https://travis-ci.org/feuGeneA/aspectus)
 
-Deployed as an Amazon Web Services Lambda microservice.
+Deployable as an Amazon Web Services Lambda microservice via the Makefile, which assumes that the `aws` command line environment has been properly initialized.
 
 Currently supports only trine and sextant aspects, and only between the Earth and Sun.
 
