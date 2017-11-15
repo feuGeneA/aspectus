@@ -4,11 +4,13 @@ aspectus
 
 Import events into your Google Calendar (or other favorite iCalendar application) for recurring angles between celestial bodies.
 
+Deployable as an Amazon Web Services Lambda microservice via a GNU Makefile, and accessible via HTTP query.
+
 Development status
 ---
 [![Build Status](https://travis-ci.org/feuGeneA/aspectus.svg?branch=master)](https://travis-ci.org/feuGeneA/aspectus)
 
-Deployable as an Amazon Web Services Lambda microservice via the Makefile, which assumes that the `aws` command line environment has been properly initialized.
+Lamda deployment assumes that the `aws` command line environment has been properly initialized.
 
 Currently supports only trine and sextant aspects, and only between the Earth and Sun.
 
